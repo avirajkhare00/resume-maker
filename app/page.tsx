@@ -53,20 +53,6 @@ export default function Home() {
     }
   };
 
-  const handleDownload = () => {
-    if (!optimizedContent) return;
-
-    const blob = new Blob([optimizedContent], { type: 'application/pdf' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'optimized-resume.pdf';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  };
-
   return (
     <div className="min-h-screen py-8 px-4 sm:px-6 lg:px-8 bg-background">
       <main className="max-w-2xl mx-auto space-y-8">
@@ -143,10 +129,18 @@ export default function Home() {
               <pre className="whitespace-pre-wrap text-sm">{optimizedContent}</pre>
             </div>
             <button
-              onClick={handleDownload}
+              onClick={async () => {
+                try {
+                  await navigator.clipboard.writeText(optimizedContent);
+                  alert('Content copied to clipboard!');
+                } catch (err) {
+                  console.error('Failed to copy:', err);
+                  alert('Failed to copy content');
+                }
+              }}
               className="btn btn-success w-full"
             >
-              Download Optimized Resume
+              Copy to Clipboard
             </button>
           </div>
         )}
