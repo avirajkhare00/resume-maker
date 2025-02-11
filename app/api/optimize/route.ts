@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
+import pdf from 'pdf-parse';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -26,9 +27,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Convert PDF to text (simplified for MVP)
+    // Convert PDF to text using pdf-parse
     const resumeBuffer = Buffer.from(await resumeFile.arrayBuffer());
-    const resumeText = resumeBuffer.toString('utf-8');
+    const pdfData = await pdf(resumeBuffer);
+    const resumeText = pdfData.text;
 
     // Use OpenAI to optimize the resume
     const completion = await openai.chat.completions.create({
@@ -55,8 +57,10 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Error processing request:', error);
     return NextResponse.json(
-      { error: 'Failed to process the request' },
+      { error: error instanceof Error ? error.message : 'Failed to process the request' },
       { status: 500 }
     );
   }
 }
+
+export const runtime = 'nodejs';
