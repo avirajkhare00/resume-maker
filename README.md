@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Resume Maker
 
-## Getting Started
+A modern web application that helps users optimize their resumes for specific job descriptions using OpenAI's GPT model. The app analyzes both the resume and job description to provide tailored suggestions and improvements.
 
-First, run the development server:
+## Features
 
+- Upload PDF resumes
+- Input job descriptions
+- AI-powered resume optimization
+- Clean, modern UI with Tailwind CSS
+- Instant feedback and suggestions
+
+## Prerequisites
+
+- Node.js 18+ and npm
+- OpenAI API key
+
+## Setup
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/yourusername/resume-maker.git
+cd resume-maker
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Create a `.env.local` file in the root directory and add your OpenAI API key:
+```env
+OPENAI_API_KEY=your_api_key_here
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Start the development server:
+```bash
+npm run dev
+```
 
-## Learn More
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the application.
 
-To learn more about Next.js, take a look at the following resources:
+## Tech Stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Next.js](https://nextjs.org) - React framework
+- [OpenAI API](https://openai.com) - AI-powered resume optimization
+- [Tailwind CSS](https://tailwindcss.com) - Styling
+- [pdf-parse](https://www.npmjs.com/package/pdf-parse) - PDF text extraction
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project Structure
 
-## Deploy on Vercel
+```
+resume-maker/
+├── app/                    # Next.js App Router
+│   ├── api/               # API routes
+│   │   └── optimize/      # Resume optimization endpoint
+│   ├── page.tsx          # Main application page
+│   └── layout.tsx        # Root layout
+├── public/               # Static assets
+└── package.json          # Project dependencies
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## API Endpoints
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### POST /api/optimize
+Optimizes a resume based on a job description.
+
+**Request Body:**
+- `resume`: PDF file
+- `jobDescription`: string
+
+**Response:**
+```json
+{
+  "success": true,
+  "optimizedContent": "optimized resume content"
+}
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
