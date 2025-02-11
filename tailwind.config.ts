@@ -11,6 +11,10 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        primary: "var(--primary)",
+        "primary-hover": "var(--primary-hover)",
+        success: "var(--success)",
+        "success-hover": "var(--success-hover)",
       },
     },
   },

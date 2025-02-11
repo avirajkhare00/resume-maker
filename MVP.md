@@ -4,7 +4,7 @@
 
 ### 1. Resume Upload
 - Single file upload functionality
-- Support for PDF and DOCX formats
+- Support for PDF format only
 - Basic file validation (size, format)
 - Simple error handling
 
